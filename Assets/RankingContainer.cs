@@ -10,10 +10,14 @@ using TMPro;
 public class RankingContainer : MonoBehaviour
 {
     public GameObject[] ViewObjects;
-    void Update(){
-        var task = UpdateRanking();
-        task.Forget();
+    void Start(){
+        InvokeRepeating(nameof(UpdateRanking),1f, 1f); // 1秒後に最初に実行し、その後1秒ごとに繰り返す
     }
+
+    void StopUpdating(){
+        CancelInvoke(nameof(UpdateRanking));
+    }
+
 
     async UniTask<bool> UpdateRanking(){
         var r = UnityWebRequest.Get("");

@@ -1307,7 +1307,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca76ba9c7a99114580b569790b65cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewObjects: []
+  ViewObjects:
+  - {fileID: 403885842}
+  - {fileID: 998155591}
+  - {fileID: 1277906310}
+  - {fileID: 1801546828}
+  - {fileID: 155192970}
+  - {fileID: 2031334310}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3740,6 +3746,7 @@ GameObject:
   - component: {fileID: 1439840311}
   - component: {fileID: 1439840313}
   - component: {fileID: 1439840312}
+  - component: {fileID: 1439840314}
   m_Layer: 5
   m_Name: HasMoney
   m_TagString: Untagged
@@ -3867,6 +3874,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439840310}
   m_CullTransparentMesh: 1
+--- !u!114 &1439840314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439840310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5893f44f28ddcb24da1f0a0cb19b5981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AssetsObjects:
+  - {fileID: 928760918}
+  - {fileID: 961677548}
 --- !u!1 &1480755304
 GameObject:
   m_ObjectHideFlags: 0

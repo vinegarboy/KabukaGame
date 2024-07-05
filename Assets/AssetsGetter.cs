@@ -26,7 +26,7 @@ public class AssetsGetter : MonoBehaviour
         }
         string[] assets_data = result.downloadHandler.text.Split(',');
         for(int i = 0; i < assets_data.Length; i++){
-            AssetsObjects[i].text = assets_data[i];
+            AssetsObjects[i].text = $"{assets_data[i]}";
         }
         return true;
     }

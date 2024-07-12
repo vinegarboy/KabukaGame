@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class TitleComponent : MonoBehaviour
@@ -16,8 +18,23 @@ public class TitleComponent : MonoBehaviour
         }
         // POSTについて https://beyondjapan.com/blog/2020/05/unitywebrequest/
         //ユーザーIDはPOSTした内容を代入する
-        UserData.UserID = "";
+        UserData.UserID = PostNameData();
         // ゲームを開始する
         SceneManager.LoadScene("PlayingScene");
+    }
+
+    // ユーザー名をPOSTする
+    string PostNameData()
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post("URL入れておこう", "{ \"UserName\": "+UserData.UserName+"}", "application/json"))
+        {
+            string data = www.SendWebRequest().ToString();
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(www.error);
+                return null;
+            }
+            return data;
+        }
     }
 }

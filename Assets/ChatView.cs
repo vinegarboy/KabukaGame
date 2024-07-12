@@ -20,6 +20,7 @@ public class ChatView : MonoBehaviour
             chart2[i] = 0;
         }
         // chart1の各要素をY軸の値としてLineRendererに設定
+        // y軸のレンジは1~3なので割合で調整する
         for (int i = 0; i < chart1.Length; i++){
             chartRender1.SetPosition(i, new Vector3(-8+(float)(i*0.5), chart1[i]+1, 0));
             chartRender2.SetPosition(i, new Vector3(-3+(float)(i*0.5), chart2[i]+1, 0));

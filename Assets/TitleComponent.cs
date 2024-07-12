@@ -12,7 +12,7 @@ public class TitleComponent : MonoBehaviour
     TMP_InputField inputField;
     public void StartGame(){
         if(inputField.text == ""){
-            UserData.UserName = $"Guest{Random.Range(1000, 10000)}";
+            UserData.UserName = $"Guest{UnityEngine.Random.Range(1000, 10000)}";
         }else{
             UserData.UserName = inputField.text;
         }

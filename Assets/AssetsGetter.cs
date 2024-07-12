@@ -18,6 +18,8 @@ public class AssetsGetter : MonoBehaviour
     }
 
     async UniTask<bool> GetMyAssets(){
+        //URLが確定したらコレでGET通信ができる
+        //ユーザーIDはUserData.UserIDで取得できる
         var r = UnityWebRequest.Get("");
         var result = await r.SendWebRequest();
         if (!result.isDone){

@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e208b3968afb1941929d5da72d684c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputField: {fileID: 0}
+  inputField: {fileID: 595377238}
 --- !u!1 &73063262
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +254,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 73063265}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 56277466}
+        m_TargetAssemblyTypeName: TitleComponent, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &73063265
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -540,7 +540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -367.49988, y: 207.5}
+  m_AnchoredPosition: {x: -367.49994, y: 207.5}
   m_SizeDelta: {x: -835, y: -685}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &170224050
@@ -593,8 +593,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1ebc2110de13f4cac3033618fffaf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chartRender1: {fileID: 0}
-  chartRender2: {fileID: 0}
+  chartRender1: {fileID: 1684741549}
+  chartRender2: {fileID: 1807094748}
 --- !u!1 &201271201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1619,7 +1619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f57cfcc4671793945bf23045b332e551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nametext: {fileID: 0}
+  nametext: {fileID: 202339593}
 --- !u!1 &403885842
 GameObject:
   m_ObjectHideFlags: 0
@@ -2948,11 +2948,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Option A
+    - m_Text: Yen
       m_Image: {fileID: 0}
-    - m_Text: Option B
-      m_Image: {fileID: 0}
-    - m_Text: Option C
+    - m_Text: Daller
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3164,7 +3162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -759.9999, y: 450}
+  m_AnchoredPosition: {x: -759.99994, y: 450}
   m_SizeDelta: {x: -1620, y: -900}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &943251199
@@ -3739,7 +3737,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Option A
+  m_text: Yen
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4730,8 +4728,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20477a13c987b5544bdda5bfbe44546d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropdown: {fileID: 0}
-  inputField: {fileID: 0}
+  dropdown: {fileID: 857706363}
+  inputField: {fileID: 1840230591}
   audioSource: {fileID: 0}
 --- !u!1 &1551505649
 GameObject:
@@ -6579,7 +6577,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2028537318}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1480755308}
+        m_TargetAssemblyTypeName: BuyComponent, Assembly-CSharp
+        m_MethodName: Buy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2028537318
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class TitleComponent : MonoBehaviour
         }else{
             UserData.UserName = inputField.text;
         }
-        
+        // POSTについて https://beyondjapan.com/blog/2020/05/unitywebrequest/
         //ユーザーIDはPOSTした内容を代入する
         UserData.UserID = "";
         // ゲームを開始する

@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using static Cysharp.Threading.Tasks.UniTask;
 using TMPro;
+using System.Linq;
 
 public class RankingContainer : MonoBehaviour
 {
@@ -19,18 +20,41 @@ public class RankingContainer : MonoBehaviour
     }
 
 
-    async UniTask<bool> UpdateRanking(){
-        var r = UnityWebRequest.Get("");
+    async UniTask<bool> UpdateRanking()
+    {
+        var r = UnityWebRequest.Get($"{ConnectionData.URL}Ranking");
         var result = await r.SendWebRequest();
-        if (!result.isDone){
+        while (!result.isDone) { }
+        if (result.result != UnityWebRequest.Result.Success){
             Debug.Log(r.error);
             return false;
         }
-        string[] ranking_data = result.downloadHandler.text.Split(',');
-        for(int i = 0; i < ranking_data.Length; i+=2){
-            ViewObjects[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"Name:{ranking_data[i]}";
-            ViewObjects[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Score:{ranking_data[i+1]}";
+        string[] rankingData = result.downloadHandler.text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+        List<PlayerInfo> players = new List<PlayerInfo>();
+
+        foreach (var data in rankingData){
+            var player = JsonUtility.FromJson<PlayerInfo>(data);
+            players.Add(player);
+        }
+
+        // 上位6人のデータを抽出
+        var topSixPlayers = players.OrderByDescending(p => p.coinA + p.coinB).Take(6);
+
+        // 上位6人のデータを表示する処理
+        var topSixPlayersList = topSixPlayers.ToList();
+        for (int i = 0; i < topSixPlayersList.Count(); i++){
+            ViewObjects[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"Name: {topSixPlayersList[i].Name}";
+            ViewObjects[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Coins: {topSixPlayersList[i].coinA + topSixPlayersList[i].coinB}";
         }
         return true;
     }
+}
+
+[System.Serializable]
+public class PlayerInfo
+{
+    public string Name;
+    public string id;
+    public int coinA;
+    public int coinB;
 }

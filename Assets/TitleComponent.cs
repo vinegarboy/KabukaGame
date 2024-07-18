@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Text;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -26,15 +27,27 @@ public class TitleComponent : MonoBehaviour
     // ユーザー名をPOSTする
     string PostNameData()
     {
-        using (UnityWebRequest www = UnityWebRequest.Post("URL入れておこう", "{ \"UserName\": "+UserData.UserName+"}", "application/json"))
+        Debug.Log($"{ConnectionData.URL}Register");
+        using (UnityWebRequest www = UnityWebRequest.Post($"{ConnectionData.URL}Register", "{ \"UserName\": "+UserData.UserName+"}", "application/json"))
         {
-            string data = www.SendWebRequest().ToString();
+            www.SendWebRequest();
+            while (!www.isDone) { }
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError(www.error);
+                Debug.LogError($"{www.error}\n{www.downloadHandler.text}");
                 return null;
             }
-            return data;
+            RegisterResponse response = JsonUtility.FromJson<RegisterResponse>(www.downloadHandler.text);
+
+            // idフィールドの値を返す
+            return response.id;
         }
     }
+}
+
+[System.Serializable]
+public class RegisterResponse{
+    public int code;
+    public string id;
+    public string message;
 }

@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Text;
 
 public class AssetsGetter : MonoBehaviour
 {
@@ -17,19 +18,39 @@ public class AssetsGetter : MonoBehaviour
         CancelInvoke(nameof(GetMyAssets));
     }
 
-    async UniTask<bool> GetMyAssets(){
+    public bool GetMyAssets(){
         //URLが確定したらコレでGET通信ができる
         //ユーザーIDはUserData.UserIDで取得できる
-        var r = UnityWebRequest.Get("");
-        var result = await r.SendWebRequest();
-        if (!result.isDone){
-            Debug.Log(r.error);
-            return false;
+        using (UnityWebRequest www = UnityWebRequest.Post($"{ConnectionData.URL}GetUserData", "{ \"id\": "+UserData.UserID+"}", "application/json")){
+            www.SendWebRequest();
+            while (!www.isDone) { }
+            if (www.result != UnityWebRequest.Result.Success){
+                Debug.LogError(www.error);
+            }
+            // JSONをデシリアライズするためのオブジェクトを作成
+            var jsonResponse = JsonUtility.FromJson<dynamic>(www.downloadHandler.text);
+
+            if(jsonResponse.code != 200){
+                return false;
+            }
+
+            // メッセージ部分をさらにデシリアライズ
+            var messageObject = JsonUtility.FromJson<Message>(jsonResponse.message.toString());
+
+            // CoinAとCoinBの値をAssetsObjectsに設定
+            AssetsObjects[0].text = "CoinA:"+messageObject.coinA.ToString();
+            AssetsObjects[1].text = "CoinB:"+messageObject.coinB.ToString();
+
+            return true;
         }
-        string[] assets_data = result.downloadHandler.text.Split(',');
-        for(int i = 0; i < assets_data.Length; i++){
-            AssetsObjects[i].text = $"{assets_data[i]}";
-        }
-        return true;
     }
+}
+
+[System.Serializable]
+public class Message
+{
+    public string Name;
+    public string id;
+    public int coinA;
+    public int coinB;
 }

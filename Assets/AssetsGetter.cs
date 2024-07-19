@@ -21,25 +21,19 @@ public class AssetsGetter : MonoBehaviour
     public bool GetMyAssets(){
         //URLが確定したらコレでGET通信ができる
         //ユーザーIDはUserData.UserIDで取得できる
-        using (UnityWebRequest www = UnityWebRequest.Post($"{ConnectionData.URL}GetUserData", "{ \"id\": "+UserData.UserID+"}", "application/json")){
+        using (UnityWebRequest www = UnityWebRequest.Get($"{ConnectionData.URL}GetUserData?userId={UserData.UserID}")){
             www.SendWebRequest();
             while (!www.isDone) { }
             if (www.result != UnityWebRequest.Result.Success){
                 Debug.LogError(www.error);
             }
             // JSONをデシリアライズするためのオブジェクトを作成
-            var jsonResponse = JsonUtility.FromJson<dynamic>(www.downloadHandler.text);
-
-            if(jsonResponse.code != 200){
-                return false;
-            }
-
-            // メッセージ部分をさらにデシリアライズ
-            var messageObject = JsonUtility.FromJson<Message>(jsonResponse.message.toString());
+            var coinA = www.downloadHandler.text.Split(",")[0];
+            var coinB = www.downloadHandler.text.Split(",")[1];
 
             // CoinAとCoinBの値をAssetsObjectsに設定
-            AssetsObjects[0].text = "CoinA:"+messageObject.coinA.ToString();
-            AssetsObjects[1].text = "CoinB:"+messageObject.coinB.ToString();
+            AssetsObjects[0].text = "CoinA:"+coinA;
+            AssetsObjects[1].text = "CoinB:"+coinB;
 
             return true;
         }

@@ -595,6 +595,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chartRender1: {fileID: 1684741549}
   chartRender2: {fileID: 1807094748}
+  price1: {fileID: 1280140041}
+  price2: {fileID: 64473068}
 --- !u!1 &201271201
 GameObject:
   m_ObjectHideFlags: 0

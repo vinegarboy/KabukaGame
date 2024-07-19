@@ -17,9 +17,9 @@ public class BuyComponent : MonoBehaviour
 
     public void Buy(){
         int money = int.Parse(inputField.text);
-        string requestBody = $"{{\"id\":\"{money}\"}}"; // リクエストボディの例
+        string requestBody = $"{{\"id\":\"{UserData.UserID}\",\"coinA_Value\": {money},\"coinB_Value\": 0}}"; // リクエストボディの例
 
-        using (UnityWebRequest www = UnityWebRequest.PostWwwForm("{ConnectionDataURL}BuyOrder", requestBody))
+        using (UnityWebRequest www = UnityWebRequest.PostWwwForm($"{ConnectionData.URL}BuyOrder", requestBody))
         {
             www.SendWebRequest();
             

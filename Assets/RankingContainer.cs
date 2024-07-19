@@ -12,24 +12,31 @@ public class RankingContainer : MonoBehaviour
 {
     public GameObject[] ViewObjects;
     void Start(){
-        InvokeRepeating(nameof(UpdateRanking),1f, 1f); // 1秒後に最初に実行し、その後1秒ごとに繰り返す
+        for (int i = 0; i < ViewObjects.Length; i++){
+            ViewObjects[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"Name: None";
+            ViewObjects[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Score: -1";
+        }
+        //InvokeRepeating(nameof(UpdateRanking),1f, 1f); // 1秒後に最初に実行し、その後1秒ごとに繰り返す
     }
 
     void StopUpdating(){
-        CancelInvoke(nameof(UpdateRanking));
+        //CancelInvoke(nameof(UpdateRanking));
     }
 
 
-    async UniTask<bool> UpdateRanking()
-    {
+    void Update(){
         var r = UnityWebRequest.Get($"{ConnectionData.URL}Ranking");
-        var result = await r.SendWebRequest();
-        while (!result.isDone) { }
-        if (result.result != UnityWebRequest.Result.Success){
-            Debug.Log(r.error);
-            return false;
+        var result = r.SendWebRequest();
+        while (!r.isDone) { }
+        for (int i = 0; i < ViewObjects.Length; i++){
+            ViewObjects[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"Name: None";
+            ViewObjects[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Score: -1";
         }
-        string[] rankingData = result.downloadHandler.text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+        if(r.result != UnityWebRequest.Result.Success){
+            Debug.Log(r.error);
+            return;
+        }
+        string[] rankingData = r.downloadHandler.text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
         List<PlayerInfo> players = new List<PlayerInfo>();
 
         foreach (var data in rankingData){
@@ -46,7 +53,6 @@ public class RankingContainer : MonoBehaviour
             ViewObjects[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"Name: {topSixPlayersList[i].Name}";
             ViewObjects[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Coins: {topSixPlayersList[i].coinA + topSixPlayersList[i].coinB}";
         }
-        return true;
     }
 }
 
